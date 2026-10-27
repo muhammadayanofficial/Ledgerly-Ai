@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-currency="{{ currency }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f1">
+  <title>{% block title %}Workspace{% endblock %} · Ledgerly</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('dashboard') }}" aria-label="Ledgerly home">
+      <span class="brand-mark">L</span>
+      <span class="brand-copy"><strong>ledgerly</strong><small>FREELANCE FINANCE</small></span>
+    </a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a class="{% if request.endpoint == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Overview</a>
+      <a class="{% if request.endpoint in ['invoices', 'new_invoice', 'invoice_detail'] %}active{% endif %}" href="{{ url_for('invoices') }}">Invoices</a>
+      <a class="{% if request.endpoint in ['clients', 'new_client'] %}active{% endif %}" href="{{ url_for('clients') }}">Clients</a>
+    </nav>
+    <div class="topbar-actions">
+      <span class="local-indicator"><span></span> Saved locally</span>
+      <a class="button button-dark button-small" href="{{ url_for('new_invoice') }}">Create invoice <span aria-hidden="true">+</span></a>
+    </div>
+  </header>
+  <main class="page-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack" role="status">{% for category, message in messages %}<div class="flash flash-{{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer"><span>Ledgerly</span><span>Simple invoicing for independent work</span><span>© {{ current_year }}</span></footer>
+</body>
+</html>

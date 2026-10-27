@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Add client{% endblock %}
+{% block content %}
+<section class="page-heading compact-heading"><a class="back-link" href="{{ url_for('clients') }}">← Back to clients</a><p class="eyebrow">NEW RELATIONSHIP</p><h1>Add a client.</h1><p class="lead">Keep the essentials here so the next invoice is easier.</p></section>
+<form class="form-layout narrow-form" method="post" novalidate>
+  <section class="form-panel"><div class="form-section-heading"><span>01</span><div><h2>Client details</h2><p>Use the name your client will recognize.</p></div></div>
+    <div class="field-grid"><label class="field full-field">Client name <span class="required">*</span><input name="name" required maxlength="120" value="{{ form.get('name', '') }}" placeholder="e.g. Alex Morgan"><small>Name or primary contact</small></label><label class="field">Company / organization<input name="company" maxlength="180" value="{{ form.get('company', '') }}" placeholder="e.g. North Studio"></label><label class="field">Email address<input type="email" name="email" maxlength="180" value="{{ form.get('email', '') }}" placeholder="alex@company.com"></label><label class="field full-field">Billing address<textarea name="address" maxlength="1000" rows="3" placeholder="Street, city, postal code">{{ form.get('address', '') }}</textarea></label></div>
+  </section>
+  <div class="form-actions"><a class="button button-outline" href="{{ url_for('clients') }}">Cancel</a><button class="button button-dark" type="submit">Save client <span>→</span></button></div>
+</form>
+{% endblock %}
